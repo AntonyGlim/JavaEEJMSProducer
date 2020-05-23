@@ -13,4 +13,13 @@
         <url-pattern>/producer-servlet</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>input-form.jsp</servlet-name>
+        <jsp-file>/input-form.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>input-form.jsp</servlet-name>
+        <url-pattern>/input-form-jsp</url-pattern>
+    </servlet-mapping>
+
 </web-app>
