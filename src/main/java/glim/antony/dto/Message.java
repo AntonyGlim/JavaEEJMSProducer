@@ -23,6 +23,33 @@ public class Message implements Serializable {
         this.inputDate = inputDate;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Message message = (Message) o;
+        if (inputNumber != null ? !inputNumber.equals(message.inputNumber) : message.inputNumber != null) return false;
+        if (inputText != null ? !inputText.equals(message.inputText) : message.inputText != null) return false;
+        return inputDate != null ? inputDate.equals(message.inputDate) : message.inputDate == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = inputText.hashCode();
+        result = 31 * result + inputNumber.hashCode();
+        result = 31 * result + inputDate.hashCode();
+        return result;
+    }
+
+    @Override
+    public String toString() {
+        return "Message{" +
+                "inputNumber=" + inputNumber +
+                ", inputText='" + inputText + '\'' +
+                ", inputDate=" + inputDate +
+                '}';
+    }
+
     public Long getInputNumber() {
         return inputNumber;
     }
@@ -51,12 +78,5 @@ public class Message implements Serializable {
         return serialVersionUID;
     }
 
-    @Override
-    public String toString() {
-        return "Message{" +
-                "inputNumber=" + inputNumber +
-                ", inputText='" + inputText + '\'' +
-                ", inputDate=" + inputDate +
-                '}';
-    }
+
 }
