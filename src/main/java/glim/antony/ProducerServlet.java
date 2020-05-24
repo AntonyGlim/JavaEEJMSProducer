@@ -49,11 +49,11 @@ public class ProducerServlet extends HttpServlet {
             String requestDate = request.getParameter("inputDate");
             inputDate = requestDate == null || requestDate.equals("") ? null : FORMAT.parse(requestDate);
         } catch (ParseException e) {
-            log.warning(e.getCause().getMessage());
-            log.warning(e.getMessage());
+            log.warning("Exception cause message: " + e.getCause().getMessage());
+            log.warning("Exception message: " + e.getMessage());
         }
         Message message = new Message(inputNumber, inputText, inputDate);
-        log.info(message.toString());
+        log.info(" [i] message: " + (message == null ? null : message.toString()));
         return message;
     }
 
@@ -67,12 +67,12 @@ public class ProducerServlet extends HttpServlet {
             marshaller.marshal(message, writer);
             xml = writer.toString();
         } catch (JAXBException e) {
-            log.warning(e.getCause().getMessage());
-            log.warning(e.getMessage());
+            log.warning("Exception cause message: " + e.getCause().getMessage());
+            log.warning("Exception message: " + e.getMessage());
         } finally {
             writer.close();
         }
-        log.info(xml);
+        log.info(" [i] xml: " + xml);
         return xml;
     }
 
