@@ -3,6 +3,7 @@ package glim.antony;
 
 import glim.antony.dto.Message;
 
+import javax.jms.JMSException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -35,8 +36,7 @@ public class ProducerServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Message message = createMessageFromRequest(request);
         String xml = marshallMessageToXml(message);
-        //sendMessageToJmsQueue(message);
-
+        sendMessageToJmsQueue(xml);
         response.sendRedirect("/producer/input-form-jsp");
     }
 
@@ -76,5 +76,12 @@ public class ProducerServlet extends HttpServlet {
         return xml;
     }
 
-
+    private void sendMessageToJmsQueue(String xml){
+        try {
+            MessageSender.send(xml);
+        } catch (JMSException e) {
+            log.warning("Exception cause message: " + e.getCause().getMessage());
+            log.warning("Exception message: " + e.getMessage());
+        }
+    }
 }
